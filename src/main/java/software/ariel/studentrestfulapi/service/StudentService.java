@@ -1,7 +1,9 @@
 package software.ariel.studentrestfulapi.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import software.ariel.studentrestfulapi.entity.Student;
+import software.ariel.studentrestfulapi.repository.StudentRepository;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -10,10 +12,15 @@ import java.util.List;
 @Service
 public class StudentService {
 
+    private final StudentRepository studentRepository;
+
+    @Autowired
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
     public List<Student> getStudent() {
-        return List.of(
-                new Student(1L,"Mariam", "mariam.jamal@gmail.com", LocalDate.of(2000, Month.JANUARY, 5), 23)
-        );
+        return studentRepository.findAll();
     }
 
 }
